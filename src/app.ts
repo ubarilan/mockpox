@@ -6,7 +6,7 @@ import { existsSync } from 'fs';
 const program = new Command();
 
 program
-    .name('mock-proxy')
+    .name('mockpox')
     .description('Record http requests and responses then mock them')
     .version('1.0.0', '-v');
 
