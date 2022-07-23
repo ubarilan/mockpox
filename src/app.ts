@@ -3,6 +3,7 @@ import { Command } from 'commander';
 import { MockOptions, RecordOptions } from './lib/types/cliOptions';
 import { resolve } from 'path';
 import { existsSync } from 'fs';
+import Record from './record/record';
 
 const program = new Command();
 
@@ -25,7 +26,8 @@ program
     // will be removed when implemented
     //eslint-disable-next-line
     .action((options: RecordOptions) => {
-        throw new Error('Not implemented');
+        const record = new Record({ ...options, port: Number(options.port) });
+        record.start();
     });
 
 program
