@@ -1,0 +1,27 @@
+{
+  "name": "mock-proxy",
+  "version": "1.0.0",
+  "description": "Record http requests and responses then mock them",
+  "main": "dist/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ubarilan/mock-proxy.git"
+  },
+  "keywords": [
+    "proxy",
+    "mock",
+    "http"
+  ],
+  "author": "Uri Bar Ilan (ubarilan)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ubarilan/mock-proxy/issues"
+  },
+  "homepage": "https://github.com/ubarilan/mock-proxy#readme",
+  "devDependencies": {
+    "@types/node": "^18.0.6"
+  }
+}
