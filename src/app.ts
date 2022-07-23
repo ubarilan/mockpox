@@ -1,5 +1,7 @@
 import { Command } from 'commander';
 import { MockOptions, RecordOptions } from './lib/types/cliOptions';
+import { resolve } from 'path';
+import { existsSync } from 'fs';
 
 const program = new Command();
 
@@ -35,6 +37,8 @@ program
     // will be removed when implemented
     //eslint-disable-next-line
     .action((file: string, options: MockOptions) => {
+        if (!existsSync(resolve(file))) throw new Error('File does not exist');
+
         throw new Error('Not implemented');
     });
 
