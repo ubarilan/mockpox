@@ -36,5 +36,8 @@
     },
     "dependencies": {
         "commander": "^9.4.0"
+    },
+    "bin": {
+        "mockpox": "dist/app.js"
     }
 }
