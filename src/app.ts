@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { RecordOptions } from './lib/types/cliOptions';
+import { MockOptions, RecordOptions } from './lib/types/cliOptions';
 
 const program = new Command();
 
@@ -22,6 +22,19 @@ program
     // will be removed when implemented
     //eslint-disable-next-line
     .action((options: RecordOptions) => {
+        throw new Error('Not implemented');
+    });
+
+program
+    .command('mock')
+    .description('Mock http requests and responses')
+    .argument('<file>', 'Input file')
+    .option('-p, --port <number>', 'Port for proxy to listen on', '8080')
+    .option('-a, --address <address>', 'Address for proxy to listen on', '8080')
+    .option('-s, --ssl', 'Use SSL', false)
+    // will be removed when implemented
+    //eslint-disable-next-line
+    .action((file: string, options: MockOptions) => {
         throw new Error('Not implemented');
     });
 
