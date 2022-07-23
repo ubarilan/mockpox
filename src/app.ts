@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 import { Command } from 'commander';
 import { MockOptions, RecordOptions } from './lib/types/cliOptions';
 import { resolve } from 'path';
