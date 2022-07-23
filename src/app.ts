@@ -19,7 +19,8 @@ program
     )
     .option('-o, --output <file>', 'Output file', 'req-res.json')
     .option('-s, --ssl', 'Use SSL', false)
-    //eslint-disable-next-line - will be removed when implemented
+    // will be removed when implemented
+    //eslint-disable-next-line
     .action((options: RecordOptions) => {
         throw new Error('Not implemented');
     });
