@@ -10,7 +10,7 @@ on:
         branches: ["master"]
 
 jobs:
-    build:
+    QA:
         runs-on: ubuntu-latest
 
         strategy:
@@ -25,7 +25,9 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: "npm"
-            - run: npm ci
-            - run: npm run build --if-present
+            - name: Install clean state
+              run: npm ci
+            - name: Building project
+              run: npm run build --if-present
             - name: Lint using ESLint
               run: npm run lint --if-present
