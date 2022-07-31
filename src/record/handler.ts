@@ -20,8 +20,6 @@ export default async function handler(
 
     const sortedUrl = sortUrlQueryStrings(req.url);
 
-    this.logger.info(sortedUrl);
-
     const rex = await axios.request({
         url: sortedUrl,
         method: req.method,
@@ -32,6 +30,8 @@ export default async function handler(
 
     res.writeHead(rex.status, rex.headers);
     res.end(rex.data);
+
+    this.logger.info(`${req.method} - ${sortedUrl} - ${rex.status}`);
 
     this.writeConfig.addEndpointData(sortedUrl, req.method as Method, rex);
 }
