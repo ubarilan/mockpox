@@ -3,6 +3,7 @@ import { Command } from 'commander';
 import { MockOptions, RecordOptions } from './lib/types/cliOptions';
 import { resolve } from 'path';
 import { existsSync } from 'fs';
+import Record from './record/record';
 
 const program = new Command();
 
@@ -22,10 +23,16 @@ program
     )
     .option('-o, --output <file>', 'Output file', 'req-res.json')
     .option('-s, --ssl', 'Use SSL', false)
+    .option('-m, --max-responses <number>', 'Max responses per endpoint', '10')
     // will be removed when implemented
     //eslint-disable-next-line
     .action((options: RecordOptions) => {
-        throw new Error('Not implemented');
+        const record = new Record({
+            ...options,
+            port: Number(options.port),
+            maxResponsesPerEndpoint: Number(options.maxResponses),
+        });
+        record.start();
     });
 
 program
