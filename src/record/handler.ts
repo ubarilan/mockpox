@@ -1,7 +1,7 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { rawHeadersToMap, sortUrlQueryStrings } from '../lib/utils/utilities';
 import Record from './record';
-import axios from 'axios';
+import axios, { Method } from 'axios';
 
 export default async function handler(
     this: Record,
@@ -32,4 +32,6 @@ export default async function handler(
 
     res.writeHead(rex.status, rex.headers);
     res.end(rex.data);
+
+    this.writeConfig.addEndpointData(sortedUrl, req.method as Method, rex);
 }

@@ -6,16 +6,20 @@ import {
 import { Logger } from 'winston';
 import { RecordConf } from '../lib/types/recordTypes';
 import { logger } from '../lib/utils/logger';
+import Writeconfig from '../lib/writeconfig';
 import handler from './handler';
 
 export default class Record {
     private server: httpServer | httpsServer; // Implement HTTPS
     protected logger: Logger;
 
+    protected writeConfig: Writeconfig;
+
     private handler = handler;
 
     constructor(private conf: RecordConf) {
         this.logger = logger;
+        this.writeConfig = new Writeconfig(conf);
     }
 
     public start() {

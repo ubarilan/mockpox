@@ -23,10 +23,15 @@ program
     )
     .option('-o, --output <file>', 'Output file', 'req-res.json')
     .option('-s, --ssl', 'Use SSL', false)
+    .option('-m, --max-responses <number>', 'Max responses per endpoint', '10')
     // will be removed when implemented
     //eslint-disable-next-line
     .action((options: RecordOptions) => {
-        const record = new Record({ ...options, port: Number(options.port) });
+        const record = new Record({
+            ...options,
+            port: Number(options.port),
+            maxResponsesPerEndpoint: Number(options.maxResponses),
+        });
         record.start();
     });
 

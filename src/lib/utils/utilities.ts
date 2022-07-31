@@ -27,5 +27,7 @@ function sortQueryString(searchParams: URLSearchParams): string {
         queries.push(`${queryKeys[i]}=${searchParams.get(queryKeys[i])}`);
     }
 
+    if (queries.length === 0) return '';
+
     return '?' + queries.join('&');
 }
