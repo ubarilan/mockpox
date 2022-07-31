@@ -19,11 +19,19 @@ export default class Record {
 
     constructor(private conf: RecordConf) {
         this.logger = logger;
-        this.writeConfig = new Writeconfig(conf);
+        this.writeConfig = new Writeconfig(conf, this.logger);
+        this.handleSigInt();
     }
 
     public start() {
         this.initServer();
+    }
+
+    private handleSigInt(): void {
+        process.on(
+            'SIGINT',
+            this.writeConfig.writeToFile.bind(this.writeConfig)
+        );
     }
 
     private initServer() {
