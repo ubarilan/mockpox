@@ -11,10 +11,14 @@ export function rawHeadersToMap(headers: string[]): Map<string, string> {
 
 // Sort url query string in order go give a consistent result when searching for a matching url in config file
 export function sortUrlQueryStrings(url: string): string {
-    const urlObj = new URL(url);
-    const urlWithoutQuery = urlObj.origin + urlObj.pathname;
+    try {
+        const urlObj = new URL(url);
+        const urlWithoutQuery = urlObj.origin + urlObj.pathname;
 
-    return urlWithoutQuery + sortQueryString(urlObj.searchParams);
+        return urlWithoutQuery + sortQueryString(urlObj.searchParams);
+    } catch {
+        return url;
+    }
 }
 
 // Sort query string from giving URL search params
@@ -30,4 +34,13 @@ function sortQueryString(searchParams: URLSearchParams): string {
     if (queries.length === 0) return '';
 
     return '?' + queries.join('&');
+}
+
+export function getUrlWithoutOrigin(url: string): string {
+    try {
+        const urlObj = new URL(url);
+        return urlObj.pathname + sortQueryString(urlObj.searchParams);
+    } catch {
+        return '';
+    }
 }

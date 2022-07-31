@@ -1,5 +1,9 @@
 import { IncomingMessage, ServerResponse } from 'http';
-import { rawHeadersToMap, sortUrlQueryStrings } from '../lib/utils/utilities';
+import {
+    getUrlWithoutOrigin,
+    rawHeadersToMap,
+    sortUrlQueryStrings,
+} from '../lib/utils/utilities';
 import Record from './record';
 import axios, { Method } from 'axios';
 
@@ -33,5 +37,9 @@ export default async function handler(
 
     this.logger.info(`${req.method} - ${sortedUrl} - ${rex.status}`);
 
-    this.writeConfig.addEndpointData(sortedUrl, req.method as Method, rex);
+    this.writeConfig.addEndpointData(
+        getUrlWithoutOrigin(sortedUrl),
+        req.method as Method,
+        rex
+    );
 }
