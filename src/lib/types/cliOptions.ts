@@ -3,6 +3,7 @@ export interface RecordOptions {
     output: string;
     port: string; // Will be turned into number
     ssl: boolean;
+    maxResponses: number;
 }
 
 export interface MockOptions {
