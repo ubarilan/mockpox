@@ -2,8 +2,8 @@
 import { Command } from 'commander';
 import { MockOptions, RecordOptions } from './lib/types/cliOptions';
 import { resolve } from 'path';
-import { existsSync } from 'fs';
 import Record from './record/record';
+import Mock from './mock/mock';
 
 const program = new Command();
 
@@ -38,16 +38,24 @@ program
 program
     .command('mock')
     .description('Mock http requests and responses')
-    .argument('<file>', 'Input file')
+    .argument('[file]', 'Input file', 'req-res.json')
     .option('-p, --port <number>', 'Port for proxy to listen on', '8080')
-    .option('-a, --address <address>', 'Address for proxy to listen on', '8080')
+    .option(
+        '-a, --address <address>',
+        'Address for proxy to listen on',
+        '0.0.0.0'
+    )
     .option('-s, --ssl', 'Use SSL', false)
     // will be removed when implemented
     //eslint-disable-next-line
     .action((file: string, options: MockOptions) => {
-        if (!existsSync(resolve(file))) throw new Error('File does not exist');
-
-        throw new Error('Not implemented');
+        const mock = new Mock({
+            address: options.address,
+            file: resolve(file),
+            port: Number(options.port),
+            ssl: options.ssl,
+        });
+        mock.start();
     });
 
 program.parse();
