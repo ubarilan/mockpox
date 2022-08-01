@@ -5,6 +5,12 @@ export interface RecordStructure {
     endpoints: { [key: string]: Partial<EndpointData> };
 }
 
+export interface EndpointRecord {
+    statusCode: number;
+    headers: AxiosResponseHeaders;
+    responseBody: string;
+}
+
 export interface RecordConf {
     address: string;
     output: string;
@@ -14,13 +20,7 @@ export interface RecordConf {
 }
 
 export type EndpointData = {
-    [key in Method]: [
-        {
-            statusCode: number;
-            headers: AxiosResponseHeaders;
-            responseBody: unknown;
-        }
-    ];
+    [key in Method]: EndpointRecord[];
 };
 
 // Example record structure
