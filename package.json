@@ -25,7 +25,6 @@
     },
     "homepage": "https://github.com/ubarilan/mockpox#readme",
     "devDependencies": {
-        "@types/commander": "^2.12.2",
         "@types/node": "^18.0.6",
         "@typescript-eslint/eslint-plugin": "^5.30.7",
         "@typescript-eslint/parser": "^5.30.7",
