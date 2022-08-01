@@ -22,17 +22,19 @@ export default class Writeconfig {
         const endpoint: responseRawData = {
             statusCode: res.status,
             headers: res.headers,
-            responseBody: JSON.stringify(res.data),
+            responseBody: res.data,
         };
 
         if (!this.recordedEndpoints[formatedUrl]) {
             this.recordedEndpoints[formatedUrl] = {
                 [method]: [endpoint],
             };
+            return;
         }
 
         if (!this.recordedEndpoints[formatedUrl][method]) {
             this.recordedEndpoints[formatedUrl][method] = [endpoint];
+            return;
         }
 
         if (
@@ -41,6 +43,7 @@ export default class Writeconfig {
         ) {
             // Decided to remove from the end as it makes more sense
             this.recordedEndpoints[formatedUrl][method].pop();
+            return;
         }
 
         this.recordedEndpoints[formatedUrl][method].push(endpoint);
