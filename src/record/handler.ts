@@ -24,22 +24,31 @@ export default async function handler(
 
     const sortedUrl = sortUrlQueryStrings(req.url);
 
-    const rex = await axios.request({
-        url: sortedUrl,
-        method: req.method,
-        headers: Object.fromEntries(headerMap),
-        maxRedirects: 0,
-        validateStatus: null,
-    });
+    try {
+        const rex = await axios.request({
+            url: sortedUrl,
+            method: req.method,
+            headers: Object.fromEntries(headerMap),
+            maxRedirects: 0,
+            validateStatus: null,
+        });
+        res.writeHead(rex.status, rex.headers);
+        res.end(rex.data);
 
-    res.writeHead(rex.status, rex.headers);
-    res.end(rex.data);
+        this.logger.info(`${req.method} - ${sortedUrl} - ${rex.status}`);
 
-    this.logger.info(`${req.method} - ${sortedUrl} - ${rex.status}`);
-
-    this.writeConfig.addEndpointData(
-        getUrlWithoutOrigin(sortedUrl),
-        req.method as Method,
-        rex
-    );
+        this.writeConfig.addEndpointData(
+            getUrlWithoutOrigin(sortedUrl),
+            req.method as Method,
+            rex
+        );
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            res.writeHead(500);
+            res.end(err.message);
+        } else {
+            res.writeHead(500);
+            res.end('Unknown error');
+        }
+    }
 }
